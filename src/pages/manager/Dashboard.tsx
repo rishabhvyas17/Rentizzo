@@ -133,9 +133,9 @@ export function ManagerDashboard() {
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6B7BA5', fontSize: 10 }}
                   tickFormatter={(v: number) => `${(v / 1000).toFixed(0)}k`} />
                 <Tooltip
-                  contentStyle={{ background: 'rgba(20,27,45,0.95)', border: '1px solid rgba(148,163,200,0.15)', borderRadius: 12, fontSize: 12, color: '#F0F2F8' }}
+                  contentStyle={{ background: '#FFFFFF', border: '1px solid rgba(226, 232, 240, 0.8)', borderRadius: 10, fontSize: 12, color: '#0F172A', boxShadow: '0 4px 12px rgba(15, 23, 42, 0.05)' }}
                   formatter={(value: any) => [`₹${Number(value).toLocaleString('en-IN')}`, '']}
-                  labelStyle={{ color: '#94A3C8' }}
+                  labelStyle={{ color: '#64748B' }}
                 />
                 <Area type="monotone" dataKey="expected" stroke="#8B5CF680" strokeWidth={2} fill="url(#colorExpected)" strokeDasharray="5 5" />
                 <Area type="monotone" dataKey="collected" stroke="#3B82F6" strokeWidth={2.5} fill="url(#colorCollected)" />

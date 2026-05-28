@@ -67,7 +67,7 @@ export function ReportsPage() {
                 </defs>
                 <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#6B7BA5', fontSize: 11 }} />
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6B7BA5', fontSize: 10 }} tickFormatter={(v: number) => `₹${(v / 1000).toFixed(0)}k`} />
-                <Tooltip contentStyle={{ background: 'rgba(20,27,45,0.95)', border: '1px solid rgba(148,163,200,0.15)', borderRadius: 12, fontSize: 12, color: '#F0F2F8' }} formatter={(v: any) => [`₹${Number(v).toLocaleString('en-IN')}`, '']} />
+                <Tooltip contentStyle={{ background: '#FFFFFF', border: '1px solid rgba(226, 232, 240, 0.8)', borderRadius: 10, fontSize: 12, color: '#0F172A', boxShadow: '0 4px 12px rgba(15, 23, 42, 0.05)' }} formatter={(v: any) => [`₹${Number(v).toLocaleString('en-IN')}`, '']} />
                 <Area type="monotone" dataKey="collected" stroke="#10B981" strokeWidth={2.5} fill="url(#revGrad)" />
               </AreaChart>
             </ResponsiveContainer>
@@ -102,7 +102,7 @@ export function ReportsPage() {
             <BarChart data={mockOccupancyData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
               <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#6B7BA5', fontSize: 11 }} />
               <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6B7BA5', fontSize: 10 }} domain={[0, 100]} tickFormatter={(v: number) => `${v}%`} />
-              <Tooltip contentStyle={{ background: 'rgba(20,27,45,0.95)', border: '1px solid rgba(148,163,200,0.15)', borderRadius: 12, fontSize: 12, color: '#F0F2F8' }} formatter={(v: any) => [`${v}%`, 'Occupancy']} />
+              <Tooltip contentStyle={{ background: '#FFFFFF', border: '1px solid rgba(226, 232, 240, 0.8)', borderRadius: 10, fontSize: 12, color: '#0F172A', boxShadow: '0 4px 12px rgba(15, 23, 42, 0.05)' }} formatter={(v: any) => [`${v}%`, 'Occupancy']} />
               <Bar dataKey="rate" radius={[6, 6, 0, 0]}>
                 {mockOccupancyData.map((entry, i) => (
                   <Cell key={i} fill={entry.rate > 80 ? '#10B981' : entry.rate > 60 ? '#F59E0B' : '#F43F5E'} fillOpacity={0.7} />

@@ -5,47 +5,47 @@
    ======================================================================== */
 
 @theme {
-  /* --- Color Palette (Prestige Real Estate Slate & Architectural Gold Theme) --- */
-  --color-void: #090B0E;       /* Luxurious deepest charcoal-black */
-  --color-abyss: #0F1218;      /* Deep graphite slate */
-  --color-deep: #151A22;       /* Structured graphite dark */
-  --color-surface: #1B212B;    /* Professional dark card slate */
-  --color-elevated: #232B39;   /* Polished slate elevated */
-  --color-muted: #303A4C;      /* Structured borders/dividers */
-  --color-subtle: #3F4C63;     /* Muted secondary interface components */
+  /* --- Color Palette (Prestige Real Estate Light - Alabaster & Royal Cobalt Theme) --- */
+  --color-void: #FAF9F6;       /* Luxurious warm Alabaster / Bone White base canvas */
+  --color-abyss: #F3F4F6;      /* Polished mineral gray */
+  --color-deep: #E2E8F0;       /* Structured light gray dividers */
+  --color-surface: #FFFFFF;    /* Clean solid white for primary panels and cards (Flat Design) */
+  --color-elevated: #F8FAFC;   /* Soft slate white for elevated sections */
+  --color-muted: #E2E8F0;      /* Structured subtle light dividers */
+  --color-subtle: #CBD5E1;     /* Active divider slate */
 
-  --color-text-primary: #F8FAFC;   /* Crisp slate-white */
-  --color-text-secondary: #94A3B8; /* Neutral slate-gray */
+  --color-text-primary: #0F172A;   /* Crisp, high-contrast Slate Navy text */
+  --color-text-secondary: #475569; /* Polished Slate Gray secondary text */
   --color-text-tertiary: #64748B;  /* Muted cool-gray */
-  --color-text-ghost: #475569;     /* Deep slate placeholder */
+  --color-text-ghost: #94A3B8;     /* Light placeholder slate */
 
-  --color-accent-blue: #1E3A8A;       /* Trusted Royal Cobalt Blue (Standard of credibility & banking) */
-  --color-accent-blue-light: #3B82F6; /* Professional sky blue for interactions */
-  --color-accent-cyan: #0EA5E9;       /* Solid sky blue */
-  --color-accent-emerald: #059669;    /* Forest Emerald (Stability, wealth, green verification) */
-  --color-accent-emerald-light: #10B981;
-  --color-accent-amber: #D97706;      /* Muted Gold/Amber (Prestige, architectural gold) */
-  --color-accent-amber-light: #F59E0B;
-  --color-accent-coral: #BE123C;      /* Deep Crimson/Rose (Serious, high-trust alerts) */
-  --color-accent-coral-light: #E11D48;
-  --color-accent-purple: #6D28D9;     /* Sophisticated royal indigo */
-  --color-accent-purple-light: #8B5CF6;
+  --color-accent-blue: #1E3A8A;       /* Trusted Royal Cobalt Blue (Banking & institutional trust) */
+  --color-accent-blue-light: #2563EB; /* Bright cobalt for interactions */
+  --color-accent-cyan: #0284C7;       /* Clean sky blue */
+  --color-accent-emerald: #047857;    /* Forest Emerald (Stability and green verification) */
+  --color-accent-emerald-light: #059669;
+  --color-accent-amber: #B45309;      /* Classic Bronze Gold (Prestige asset highlight) */
+  --color-accent-amber-light: #D97706;
+  --color-accent-coral: #9F1239;      /* Deep Burgundy/Crimson (Alerts & critical warnings) */
+  --color-accent-coral-light: #BE123C;
+  --color-accent-purple: #5B21B6;     /* Structured Royal Indigo */
+  --color-accent-purple-light: #6D28D9;
 
-  /* --- Glass Surfaces --- */
-  --color-glass-bg: rgba(22, 28, 38, 0.75);
-  --color-glass-border: rgba(255, 255, 255, 0.05);
-  --color-glass-hover: rgba(255, 255, 255, 0.03);
-  --color-glass-glow: rgba(30, 58, 138, 0.08);
+  /* --- Glass Surfaces (Mapped to Solid Clean Surfaces for Trust & Impact) --- */
+  --color-glass-bg: #FFFFFF;
+  --color-glass-border: rgba(226, 232, 240, 0.8);
+  --color-glass-hover: rgba(15, 23, 42, 0.02);
+  --color-glass-glow: rgba(30, 58, 138, 0.05);
 
-  /* --- Realistic Deep Shadows (Eliminated Childish Neon Glowing Dropshadows) --- */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.7);
-  --shadow-glow-blue: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-glow-emerald: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-glow-amber: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-glow-coral: 0 4px 20px rgba(0, 0, 0, 0.4);
+  /* --- High-Trust Natural Drop Shadows (Zero Childish Glowing Shadows) --- */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+  --shadow-xl: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 10px 15px -5px rgba(15, 23, 42, 0.04);
+  --shadow-glow-blue: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --shadow-glow-emerald: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --shadow-glow-amber: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --shadow-glow-coral: 0 4px 12px rgba(15, 23, 42, 0.05);
 
   /* --- Typography --- */
   --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -127,48 +127,31 @@ body {
 /* ======================================================================== */
 
 .glass {
-  background: var(--color-glass-bg);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: var(--color-surface);
   border: 1px solid var(--color-glass-border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .glass-elevated {
-  background: rgba(26, 35, 64, 0.70);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid rgba(148, 163, 200, 0.15);
+  background: var(--color-surface);
+  border: 1px solid rgba(226, 232, 240, 0.95);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
 
 .glass-subtle {
-  background: rgba(20, 27, 45, 0.40);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(148, 163, 200, 0.06);
+  background: var(--color-elevated);
+  border: 1px solid var(--color-deep);
   border-radius: var(--radius-md);
 }
 
-.glass-glow {
-  box-shadow: var(--shadow-glow-blue);
-  border-color: rgba(59, 130, 246, 0.25);
-}
-
-.glass-glow-emerald {
-  box-shadow: var(--shadow-glow-emerald);
-  border-color: rgba(16, 185, 129, 0.25);
-}
-
-.glass-glow-amber {
-  box-shadow: var(--shadow-glow-amber);
-  border-color: rgba(245, 158, 11, 0.25);
-}
-
+.glass-glow,
+.glass-glow-emerald,
+.glass-glow-amber,
 .glass-glow-coral {
-  box-shadow: var(--shadow-glow-coral);
-  border-color: rgba(244, 63, 94, 0.25);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-deep);
 }
 
 /* ======================================================================== */
@@ -333,7 +316,7 @@ body {
 /* ======================================================================== */
 
 .text-gradient {
-  background: linear-gradient(135deg, #E2C999, #B89C6D); /* Soft Brushed Champagne Gold Logo */
+  background: linear-gradient(135deg, #8B7342, #5C4C2B); /* Deep Antique Bronze Gold Logo */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
