@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { GlassCard, AnimatedButton, StatusBadge } from '../../components/ui';
 import { mockMaintenanceRequests } from '../../lib/mock/data';
 import { triageMaintenance } from '../../lib/ai/classifiers';
-import { Plus, Camera, Sparkles, Wrench, Zap, Droplets, Brush, HelpCircle, X, CheckCircle } from 'lucide-react';
-import { useUIStore } from '../../store';
+import { Plus, Camera, Sparkles, Zap, Droplets, Brush, HelpCircle, X, CheckCircle } from 'lucide-react';
+import { useUIStore, useAuthStore } from '../../store';
 
 const categoryIcons: Record<string, React.ReactNode> = {
   plumber: <Droplets size={20} />, electrician: <Zap size={20} />,
@@ -189,7 +189,7 @@ export function TenantProfile() {
       <h1 className="text-xl font-bold font-heading text-text-primary mb-5">Profile</h1>
       <GlassCard variant="elevated" className="text-center mb-5">
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent-emerald to-accent-cyan mx-auto mb-3 flex items-center justify-center text-2xl font-bold text-white">
-          {user?.name?.split(' ').map(w => w[0]).join('') || 'RK'}
+          {user?.name?.split(' ').map((w: string) => w[0]).join('') || 'RK'}
         </div>
         <h2 className="text-lg font-bold text-text-primary">{user?.name}</h2>
         <p className="text-sm text-text-secondary">{user?.phone}</p>
