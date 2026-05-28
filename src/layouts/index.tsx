@@ -5,7 +5,7 @@ import { useAuthStore, useUIStore } from '../store';
 import {
   LayoutDashboard, Building2, Users, BarChart3, Settings,
   Home, CreditCard, Wrench, UserCircle, Search, Heart, X,
-  Menu, LogOut, Bell, Sparkles
+  Menu, LogOut, Bell
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -42,7 +42,7 @@ export function ManagerLayout() {
         <div className="p-5 border-b border-glass-border">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
-              <Sparkles size={20} className="text-white" />
+              <Building2 size={20} className="text-white" />
             </div>
             <div>
               <h1 className="text-base font-bold text-text-primary font-heading">NestEase</h1>
@@ -97,7 +97,7 @@ export function ManagerLayout() {
           </button>
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-gradient-primary flex items-center justify-center">
-              <Sparkles size={14} className="text-white" />
+              <Building2 size={14} className="text-white" />
             </div>
             <span className="text-sm font-bold font-heading text-text-primary">NestEase</span>
           </div>
@@ -129,7 +129,7 @@ export function ManagerLayout() {
               <div className="flex items-center justify-between p-5 border-b border-glass-border">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center">
-                    <Sparkles size={18} className="text-white" />
+                    <Building2 size={18} className="text-white" />
                   </div>
                   <h1 className="text-base font-bold font-heading text-text-primary">NestEase</h1>
                 </div>
@@ -198,7 +198,7 @@ export function TenantLayout() {
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-gradient-primary flex items-center justify-center">
-              <Sparkles size={14} className="text-white" />
+              <Building2 size={14} className="text-white" />
             </div>
             <span className="text-sm font-bold font-heading text-text-primary">NestEase</span>
           </div>
@@ -252,7 +252,7 @@ export function SeekerLayout() {
         <div className="flex items-center justify-between px-4 py-3 max-w-3xl mx-auto">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-gradient-primary flex items-center justify-center">
-              <Sparkles size={14} className="text-white" />
+              <Building2 size={14} className="text-white" />
             </div>
             <span className="text-sm font-bold font-heading text-text-primary">NestEase</span>
           </div>

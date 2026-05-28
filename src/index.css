@@ -5,47 +5,47 @@
    ======================================================================== */
 
 @theme {
-  /* --- Color Palette --- */
-  --color-void: #050810;
-  --color-abyss: #0A0F1C;
-  --color-deep: #0F1629;
-  --color-surface: #141B2D;
-  --color-elevated: #1A2340;
-  --color-muted: #243055;
-  --color-subtle: #2D3B6A;
+  /* --- Color Palette (Prestige Real Estate Slate & Architectural Gold Theme) --- */
+  --color-void: #090B0E;       /* Luxurious deepest charcoal-black */
+  --color-abyss: #0F1218;      /* Deep graphite slate */
+  --color-deep: #151A22;       /* Structured graphite dark */
+  --color-surface: #1B212B;    /* Professional dark card slate */
+  --color-elevated: #232B39;   /* Polished slate elevated */
+  --color-muted: #303A4C;      /* Structured borders/dividers */
+  --color-subtle: #3F4C63;     /* Muted secondary interface components */
 
-  --color-text-primary: #F0F2F8;
-  --color-text-secondary: #94A3C8;
-  --color-text-tertiary: #6B7BA5;
-  --color-text-ghost: #4A5A85;
+  --color-text-primary: #F8FAFC;   /* Crisp slate-white */
+  --color-text-secondary: #94A3B8; /* Neutral slate-gray */
+  --color-text-tertiary: #64748B;  /* Muted cool-gray */
+  --color-text-ghost: #475569;     /* Deep slate placeholder */
 
-  --color-accent-blue: #3B82F6;
-  --color-accent-blue-light: #60A5FA;
-  --color-accent-cyan: #22D3EE;
-  --color-accent-emerald: #10B981;
-  --color-accent-emerald-light: #34D399;
-  --color-accent-amber: #F59E0B;
-  --color-accent-amber-light: #FBBF24;
-  --color-accent-coral: #F43F5E;
-  --color-accent-coral-light: #FB7185;
-  --color-accent-purple: #8B5CF6;
-  --color-accent-purple-light: #A78BFA;
+  --color-accent-blue: #1E3A8A;       /* Trusted Royal Cobalt Blue (Standard of credibility & banking) */
+  --color-accent-blue-light: #3B82F6; /* Professional sky blue for interactions */
+  --color-accent-cyan: #0EA5E9;       /* Solid sky blue */
+  --color-accent-emerald: #059669;    /* Forest Emerald (Stability, wealth, green verification) */
+  --color-accent-emerald-light: #10B981;
+  --color-accent-amber: #D97706;      /* Muted Gold/Amber (Prestige, architectural gold) */
+  --color-accent-amber-light: #F59E0B;
+  --color-accent-coral: #BE123C;      /* Deep Crimson/Rose (Serious, high-trust alerts) */
+  --color-accent-coral-light: #E11D48;
+  --color-accent-purple: #6D28D9;     /* Sophisticated royal indigo */
+  --color-accent-purple-light: #8B5CF6;
 
   /* --- Glass Surfaces --- */
-  --color-glass-bg: rgba(20, 27, 45, 0.60);
-  --color-glass-border: rgba(148, 163, 200, 0.12);
-  --color-glass-hover: rgba(148, 163, 200, 0.08);
-  --color-glass-glow: rgba(59, 130, 246, 0.15);
+  --color-glass-bg: rgba(22, 28, 38, 0.75);
+  --color-glass-border: rgba(255, 255, 255, 0.05);
+  --color-glass-hover: rgba(255, 255, 255, 0.03);
+  --color-glass-glow: rgba(30, 58, 138, 0.08);
 
-  /* --- Shadows --- */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.5);
-  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.3);
-  --shadow-glow-emerald: 0 0 20px rgba(16, 185, 129, 0.3);
-  --shadow-glow-amber: 0 0 20px rgba(245, 158, 11, 0.3);
-  --shadow-glow-coral: 0 0 20px rgba(244, 63, 94, 0.3);
+  /* --- Realistic Deep Shadows (Eliminated Childish Neon Glowing Dropshadows) --- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.7);
+  --shadow-glow-blue: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow-emerald: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow-amber: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow-coral: 0 4px 20px rgba(0, 0, 0, 0.4);
 
   /* --- Typography --- */
   --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -53,20 +53,20 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* --- Spacing Scale --- */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
   --radius-full: 9999px;
 
   /* --- Animations --- */
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 350ms;
 }
 
 /* ======================================================================== */
@@ -333,47 +333,46 @@ body {
 /* ======================================================================== */
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--color-accent-blue-light), var(--color-accent-cyan));
+  background: linear-gradient(135deg, #E2C999, #B89C6D); /* Soft Brushed Champagne Gold Logo */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-warm {
-  background: linear-gradient(135deg, var(--color-accent-amber), var(--color-accent-coral));
+  background: linear-gradient(135deg, #E5A93C, #A05A2C); /* Warm Architectural Copper */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-emerald {
-  background: linear-gradient(135deg, var(--color-accent-emerald), var(--color-accent-cyan));
+  background: linear-gradient(135deg, #34D399, #059669); /* Polished Jade */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-purple));
+  background: linear-gradient(135deg, #1E3A8A, #1D4ED8); /* Trusted Royal Cobalt Blue */
 }
 
 .bg-gradient-success {
-  background: linear-gradient(135deg, var(--color-accent-emerald), var(--color-accent-cyan));
+  background: linear-gradient(135deg, #059669, #064E3B); /* Classic Forest Emerald */
 }
 
 .bg-gradient-warning {
-  background: linear-gradient(135deg, var(--color-accent-amber), var(--color-accent-coral-light));
+  background: linear-gradient(135deg, #D97706, #78350F); /* Architectural Bronze */
 }
 
 .bg-gradient-danger {
-  background: linear-gradient(135deg, var(--color-accent-coral), var(--color-accent-purple));
+  background: linear-gradient(135deg, #BE123C, #881337); /* Prestigious Crimson Burgundy */
 }
 
 .bg-gradient-mesh-dark {
   background: 
-    radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(30, 58, 138, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(5, 150, 105, 0.03) 0%, transparent 50%),
     var(--color-abyss);
 }
 

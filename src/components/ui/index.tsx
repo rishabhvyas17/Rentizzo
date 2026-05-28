@@ -16,10 +16,10 @@ const variants = {
   default: 'glass',
   elevated: 'glass-elevated',
   subtle: 'glass-subtle',
-  glow: 'glass glass-glow',
-  'glow-emerald': 'glass glass-glow-emerald',
-  'glow-amber': 'glass glass-glow-amber',
-  'glow-coral': 'glass glass-glow-coral',
+  glow: 'glass border-accent-blue/20 bg-surface/85 shadow-md',
+  'glow-emerald': 'glass border-accent-emerald/20 bg-surface/85 shadow-md',
+  'glow-amber': 'glass border-accent-amber/20 bg-surface/85 shadow-md',
+  'glow-coral': 'glass border-accent-coral/20 bg-surface/85 shadow-md',
 };
 
 export function GlassCard({
@@ -57,11 +57,11 @@ interface AnimatedButtonProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 const btnVariants = {
-  primary: 'bg-gradient-primary text-white shadow-lg shadow-accent-blue/20 hover:shadow-accent-blue/40',
+  primary: 'bg-gradient-primary text-white shadow-md hover:brightness-110',
   secondary: 'glass border border-glass-border text-text-primary hover:bg-glass-hover',
   ghost: 'text-text-secondary hover:text-text-primary hover:bg-glass-hover',
-  danger: 'bg-gradient-danger text-white shadow-lg shadow-accent-coral/20',
-  success: 'bg-gradient-success text-white shadow-lg shadow-accent-emerald/20',
+  danger: 'bg-gradient-danger text-white shadow-md hover:brightness-110',
+  success: 'bg-gradient-success text-white shadow-md hover:brightness-110',
 };
 
 const btnSizes = {
@@ -219,11 +219,11 @@ interface AvatarProps {
 const avatarSizes = { sm: 'w-8 h-8 text-xs', md: 'w-10 h-10 text-sm', lg: 'w-12 h-12 text-base', xl: 'w-16 h-16 text-lg' };
 
 const avatarGradients = [
-  'from-accent-blue to-accent-purple',
-  'from-accent-emerald to-accent-cyan',
-  'from-accent-amber to-accent-coral',
-  'from-accent-purple to-accent-coral',
-  'from-accent-cyan to-accent-blue',
+  'from-slate-600 to-slate-800',
+  'from-blue-900 to-slate-800',
+  'from-emerald-900 to-slate-800',
+  'from-amber-900 to-slate-800',
+  'from-indigo-950 to-slate-800',
 ];
 
 export function Avatar({ name, src, size = 'md', showRing = false }: AvatarProps) {

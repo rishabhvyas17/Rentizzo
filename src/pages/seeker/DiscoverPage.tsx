@@ -4,6 +4,7 @@ import { GlassCard, AnimatedButton, ChipFilter } from '../../components/ui';
 import { mockListings } from '../../lib/mock/data';
 import { parseSearchQuery } from '../../lib/ai/classifiers';
 import type { Listing } from '../../types';
+import {
   Search, Sparkles, MapPin, IndianRupee, Shield, Heart, Wifi, Car,
   Utensils, Dumbbell, Waves, Zap, X, Send, Verified
 } from 'lucide-react';

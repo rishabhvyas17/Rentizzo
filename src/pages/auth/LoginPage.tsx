@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '../../store';
 import { AnimatedButton, GlassCard } from '../../components/ui';
-import { Sparkles, Building2, Users, Search, Shield, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Building2, Users, Search, Shield, ArrowRight, ArrowLeft } from 'lucide-react';
 
 type Step = 'welcome' | 'phone' | 'otp' | 'role';
 
@@ -64,20 +64,20 @@ export function LoginPage() {
   }, [step]);
 
   const roles = [
-    { id: 'owner', label: 'Owner', desc: 'I own rental properties', icon: <Building2 size={28} />, gradient: 'from-accent-amber to-accent-coral' },
-    { id: 'manager', label: 'Manager', desc: 'I manage properties for owners', icon: <Users size={28} />, gradient: 'from-accent-blue to-accent-purple' },
-    { id: 'tenant', label: 'Tenant', desc: 'I am renting a room or flat', icon: <Shield size={28} />, gradient: 'from-accent-emerald to-accent-cyan' },
-    { id: 'seeker', label: 'Looking for a place', desc: 'I want to find a room, PG, or flat', icon: <Search size={28} />, gradient: 'from-accent-purple to-accent-coral' },
+    { id: 'owner', label: 'Owner', desc: 'I own rental properties', icon: <Building2 size={28} />, gradient: 'from-slate-700 to-slate-800' },
+    { id: 'manager', label: 'Manager', desc: 'I manage properties for owners', icon: <Users size={28} />, gradient: 'from-accent-blue to-indigo-950' },
+    { id: 'tenant', label: 'Tenant', desc: 'I am renting a room or flat', icon: <Shield size={28} />, gradient: 'from-accent-emerald to-emerald-950' },
+    { id: 'seeker', label: 'Looking for a place', desc: 'I want to find a room, PG, or flat', icon: <Search size={28} />, gradient: 'from-slate-700 to-slate-900' },
   ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-mesh-dark relative overflow-hidden">
       <div className="gradient-mesh" />
 
-      {/* Decorative orbs */}
-      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-accent-blue/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 -right-32 w-72 h-72 bg-accent-purple/8 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-emerald/5 rounded-full blur-3xl" />
+      {/* Decorative orbs - Extremely subtle and high-trust */}
+      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-accent-blue/3 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 -right-32 w-72 h-72 bg-slate-500/2 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-emerald/2 rounded-full blur-3xl" />
 
       <div className="relative z-10 w-full max-w-md mx-auto px-4">
         <AnimatePresence mode="wait">
@@ -85,12 +85,12 @@ export function LoginPage() {
           {step === 'welcome' && (
             <motion.div key="welcome" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="text-center">
               <motion.div
-                className="w-20 h-20 rounded-2xl bg-gradient-primary mx-auto mb-8 flex items-center justify-center shadow-xl shadow-accent-blue/20"
+                className="w-20 h-20 rounded-2xl bg-gradient-primary mx-auto mb-8 flex items-center justify-center shadow-md shadow-accent-blue/10"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 15 }}
               >
-                <Sparkles size={36} className="text-white" />
+                <Building2 size={36} className="text-white" />
               </motion.div>
 
               <motion.h1
