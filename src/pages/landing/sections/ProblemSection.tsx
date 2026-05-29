@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, useScroll } from 'framer-motion';
 
 const painPoints = [
   {
@@ -27,14 +27,21 @@ const painPoints = [
 
 export function ProblemSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  // Map scroll to which pain point is visible (0, 1, 2)
-  const activeIndex = useTransform(scrollYProgress, [0, 0.33, 0.34, 0.66, 0.67, 1], [0, 0, 1, 1, 2, 2]);
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (v) => {
+      if (v < 0.33) setActiveIdx(0);
+      else if (v < 0.67) setActiveIdx(1);
+      else setActiveIdx(2);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
 
   return (
     <section ref={containerRef} className="relative" style={{ height: '300vh' }}>
@@ -59,84 +66,60 @@ export function ProblemSection() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           {painPoints.map((point, i) => (
-            <PainPointCard key={i} point={point} index={i} activeIndex={activeIndex} />
+            <motion.div
+              key={i}
+              className="absolute inset-0 flex flex-col items-center justify-center px-6"
+              animate={{
+                opacity: activeIdx === i ? 1 : 0,
+                y: activeIdx === i ? 0 : (i < activeIdx ? -60 : 60),
+                scale: activeIdx === i ? 1 : 0.9,
+              }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Emoji */}
+              <span className="text-5xl md:text-6xl mb-8 block">{point.emoji}</span>
+
+              {/* Pain statement */}
+              <h2
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight mb-8 max-w-3xl"
+                style={{ fontFamily: 'var(--font-modern)' }}
+              >
+                {point.text}
+              </h2>
+
+              {/* Stat */}
+              <div className={`inline-flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r ${point.gradient}`}>
+                <span
+                  className="text-3xl md:text-4xl font-bold text-text-primary counter-value"
+                  style={{ fontFamily: 'var(--font-modern)' }}
+                >
+                  {point.stat}
+                </span>
+                <span className="text-sm text-text-secondary text-left max-w-[200px]">
+                  {point.statLabel}
+                </span>
+              </div>
+
+              {/* Progress dots */}
+              <div className="flex items-center gap-2 mt-10">
+                {painPoints.map((_, dotIdx) => (
+                  <div
+                    key={dotIdx}
+                    className="rounded-full transition-all duration-300"
+                    style={{
+                      width: dotIdx === i ? 24 : 8,
+                      height: 8,
+                      background: dotIdx === i
+                        ? 'linear-gradient(90deg, #2563EB, #7C3AED)'
+                        : 'rgba(148,163,200,0.2)',
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function PainPointCard({
-  point,
-  index,
-  activeIndex,
-}: {
-  point: (typeof painPoints)[number];
-  index: number;
-  activeIndex: ReturnType<typeof useTransform>;
-}) {
-  const opacity = useTransform(activeIndex, (latest: number) => {
-    const distance = Math.abs(latest - index);
-    return distance < 0.5 ? 1 : 0;
-  });
-
-  const y = useTransform(activeIndex, (latest: number) => {
-    const diff = latest - index;
-    if (Math.abs(diff) > 0.5) return diff > 0 ? -60 : 60;
-    return 0;
-  });
-
-  const scale = useTransform(activeIndex, (latest: number) => {
-    const distance = Math.abs(latest - index);
-    return distance < 0.5 ? 1 : 0.9;
-  });
-
-  return (
-    <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center px-6"
-      style={{ opacity, y, scale }}
-    >
-      {/* Emoji */}
-      <span className="text-5xl md:text-6xl mb-8 block">{point.emoji}</span>
-
-      {/* Pain statement */}
-      <h2
-        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight mb-8 max-w-3xl"
-        style={{ fontFamily: 'var(--font-modern)' }}
-      >
-        {point.text}
-      </h2>
-
-      {/* Stat */}
-      <div className={`inline-flex items-center gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r ${point.gradient}`}>
-        <span
-          className="text-3xl md:text-4xl font-bold text-text-primary counter-value"
-          style={{ fontFamily: 'var(--font-modern)' }}
-        >
-          {point.stat}
-        </span>
-        <span className="text-sm text-text-secondary text-left max-w-[200px]">
-          {point.statLabel}
-        </span>
-      </div>
-
-      {/* Progress dots */}
-      <div className="flex items-center gap-2 mt-10">
-        {painPoints.map((_, dotIdx) => (
-          <motion.div
-            key={dotIdx}
-            className="rounded-full transition-all duration-300"
-            style={{
-              width: dotIdx === index ? 24 : 8,
-              height: 8,
-              background: dotIdx === index
-                ? 'linear-gradient(90deg, #2563EB, #7C3AED)'
-                : 'rgba(148,163,200,0.2)',
-            }}
-          />
-        ))}
-      </div>
-    </motion.div>
   );
 }

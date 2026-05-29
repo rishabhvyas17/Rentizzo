@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ManagerLayout, TenantLayout, SeekerLayout } from './layouts';
 import { LoginPage } from './pages/auth/LoginPage';
+import { LandingPage } from './pages/landing/LandingPage';
 import { ManagerDashboard } from './pages/manager/Dashboard';
 import { BuildingsPage } from './pages/manager/Buildings';
 import { TenantsPage } from './pages/manager/Tenants';
@@ -15,7 +16,7 @@ import { BrokerDirectory, SeekerProfile } from './pages/seeker/BrokerDirectory';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/login" replace />,
+    element: <LandingPage />,
   },
   {
     path: '/login',
