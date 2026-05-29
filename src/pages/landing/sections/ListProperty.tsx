@@ -1,31 +1,37 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Building2, UserCheck, Briefcase, ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 
 const roles = [
   {
-    icon: <Building2 size={22} />,
     title: 'Property Owners',
     description: 'List your PG, hostel, or rental property for free. Get direct leads from verified students and working professionals.',
     benefits: ['Free listing', 'Direct tenant contact', 'Rent collection tools', 'Occupancy tracking'],
     cta: 'List Your Property',
+    image: '/images/owner.png',
+    imageAlt: 'Property owner holding keys in front of a PG building',
     gradient: 'from-[#1E3A8A] to-[#2563EB]',
+    bgAccent: 'bg-blue-50',
   },
   {
-    icon: <UserCheck size={22} />,
     title: 'Property Managers',
     description: 'Manage multiple buildings from one dashboard. Track rooms, tenants, payments, and complaints — all in one place.',
     benefits: ['Multi-property dashboard', 'Tenant management', 'Automated reminders', 'Reports & analytics'],
     cta: 'Start Managing',
+    image: '/images/manager.png',
+    imageAlt: 'Property manager working on a dashboard showing occupancy and rental data',
     gradient: 'from-[#047857] to-[#059669]',
+    bgAccent: 'bg-emerald-50',
   },
   {
-    icon: <Briefcase size={22} />,
     title: 'Brokers',
     description: 'Get verified on Rentizzo and connect with genuine seekers. Build your reputation with ratings and reviews.',
     benefits: ['Verified broker badge', 'Lead generation', 'Review & rating system', 'Listing management'],
     cta: 'Join as Broker',
+    image: '/images/broker.png',
+    imageAlt: 'Real estate broker shaking hands with a student tenant',
     gradient: 'from-[#6D28D9] to-[#7C3AED]',
+    bgAccent: 'bg-violet-50',
   },
 ];
 
@@ -46,25 +52,29 @@ export function ListProperty() {
         </div>
 
         {/* Role cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5" id="for-brokers">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6" id="for-brokers">
           {roles.map((role, i) => (
             <motion.div
               key={role.title}
-              className="relative bg-white rounded-xl border border-slate-100 overflow-hidden group hover:border-slate-200 hover:shadow-md transition-all"
-              initial={{ opacity: 0, y: 16 }}
+              className="relative bg-white rounded-2xl border border-slate-100 overflow-hidden group hover:shadow-lg transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.35, delay: i * 0.08 }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
             >
-              {/* Top accent bar */}
-              <div className={`h-1 bg-gradient-to-r ${role.gradient}`} />
+              {/* Image */}
+              <div className={`${role.bgAccent} p-4 flex justify-center`}>
+                <img
+                  src={role.image}
+                  alt={role.imageAlt}
+                  className="w-full max-w-[200px] h-40 object-contain"
+                  loading="lazy"
+                />
+              </div>
 
+              {/* Content */}
               <div className="p-5 sm:p-6">
-                {/* Icon + title */}
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${role.gradient} flex items-center justify-center text-white mb-3`}>
-                  {role.icon}
-                </div>
-                <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">
+                <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-2">
                   {role.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mb-4">
@@ -84,7 +94,7 @@ export function ListProperty() {
                 {/* CTA */}
                 <button
                   onClick={() => navigate('/login')}
-                  className={`w-full inline-flex items-center justify-center gap-1.5 bg-gradient-to-r ${role.gradient} text-white text-sm font-semibold py-2.5 rounded-lg hover:opacity-90 transition-opacity`}
+                  className={`w-full inline-flex items-center justify-center gap-1.5 bg-gradient-to-r ${role.gradient} text-white text-sm font-semibold py-2.5 rounded-xl hover:opacity-90 transition-opacity`}
                 >
                   {role.cta}
                   <ArrowRight size={14} />

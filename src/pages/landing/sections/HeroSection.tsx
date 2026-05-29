@@ -57,7 +57,6 @@ export function HeroSection() {
   const handleSearch = (searchQuery?: string) => {
     const q = searchQuery || query;
     setShowSuggestions(false);
-    // Navigate to discover page — in a real app this would pass filters
     navigate('/seeker/discover');
     console.log('Search:', { query: q, type: activeType, gender });
   };
@@ -89,144 +88,177 @@ export function HeroSection() {
   return (
     <section
       id="search"
-      className="relative bg-gradient-to-b from-[#F0F4FF] via-[#F7F8FC] to-white pt-8 pb-12 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20"
+      className="relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #EEF2FF 0%, #F0F4FF 30%, #FDF8F0 70%, #FFF7ED 100%)',
+      }}
     >
-      {/* Subtle decorative elements */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-56 h-56 bg-indigo-100/30 rounded-full blur-3xl pointer-events-none" />
+      {/* Decorative blobs */}
+      <div className="absolute top-[-80px] right-[-60px] w-[300px] h-[300px] bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-[-40px] left-[-40px] w-[200px] h-[200px] bg-orange-200/20 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
-        {/* Heading — SEO h1 */}
-        <div className="text-center mb-8 sm:mb-10">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 font-heading leading-tight mb-3">
-            Find PGs, Hostels & Rooms
-            <br />
-            <span className="text-[#1E3A8A]">in Indore</span>
-          </h1>
-          <p className="text-sm sm:text-base text-slate-500 max-w-md mx-auto">
-            Verified listings near Sage, Medicaps, IPS Academy and all major colleges. Starting ₹4,000/month.
-          </p>
-        </div>
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left: Content + Search */}
+          <div>
+            {/* Heading — SEO h1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 font-heading leading-tight mb-3">
+                Find PGs, Hostels & Rooms{' '}
+                <span className="text-[#1E3A8A]">in Indore</span>
+              </h1>
+              <p className="text-sm sm:text-base text-slate-500 mb-6 max-w-md">
+                Verified listings near Sage, Medicaps, IPS Academy and all major colleges. Starting ₹4,000/month.
+              </p>
+            </motion.div>
 
-        {/* Search Card */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-slate-200/60 border border-slate-100 p-4 sm:p-5">
-          {/* Property type tabs */}
-          <div className="flex gap-1 mb-4 bg-slate-50 rounded-lg p-1">
-            {propertyTypes.map((type) => (
-              <button
-                key={type.id}
-                onClick={() => setActiveType(type.id)}
-                className={`flex-1 text-xs sm:text-sm font-medium py-2 rounded-md transition-all ${
-                  activeType === type.id
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'
-                }`}
-              >
-                {type.label}
-              </button>
-            ))}
-          </div>
+            {/* Search Card */}
+            <motion.div
+              className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100/80 p-4 sm:p-5"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              {/* Property type tabs */}
+              <div className="flex gap-1 mb-4 bg-slate-50 rounded-lg p-1">
+                {propertyTypes.map((type) => (
+                  <button
+                    key={type.id}
+                    onClick={() => setActiveType(type.id)}
+                    className={`flex-1 text-xs sm:text-sm font-medium py-2 rounded-md transition-all ${
+                      activeType === type.id
+                        ? 'bg-white text-slate-900 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    {type.label}
+                  </button>
+                ))}
+              </div>
 
-          {/* Search input */}
-          <div className="relative mb-3">
-            <div className="flex items-center gap-2 bg-slate-50 rounded-xl border border-slate-200 focus-within:border-[#1E3A8A]/40 focus-within:ring-2 focus-within:ring-[#1E3A8A]/10 transition-all">
-              <Search size={18} className="text-slate-400 ml-3 flex-shrink-0" />
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Search by college, area or locality..."
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setShowSuggestions(true);
-                }}
-                onFocus={() => query.trim() && setShowSuggestions(true)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                className="flex-1 bg-transparent py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none"
-              />
-              {query && (
-                <button
-                  onClick={() => { setQuery(''); inputRef.current?.focus(); }}
-                  className="p-1.5 mr-1 text-slate-400 hover:text-slate-600"
-                >
-                  <X size={16} />
-                </button>
-              )}
-              <button
-                onClick={() => handleSearch()}
-                className="bg-[#1E3A8A] hover:bg-[#1E3A8A]/90 text-white text-sm font-semibold px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg mr-1.5 transition-colors flex-shrink-0"
-              >
-                Search
-              </button>
-            </div>
-
-            {/* Autocomplete dropdown */}
-            <AnimatePresence>
-              {showSuggestions && suggestions.length > 0 && (
-                <motion.div
-                  className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 shadow-xl z-30 overflow-hidden"
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.12 }}
-                >
-                  {suggestions.map((s) => (
+              {/* Search input */}
+              <div className="relative mb-3">
+                <div className="flex items-center gap-2 bg-slate-50 rounded-xl border border-slate-200 focus-within:border-[#1E3A8A]/40 focus-within:ring-2 focus-within:ring-[#1E3A8A]/10 transition-all">
+                  <Search size={18} className="text-slate-400 ml-3 flex-shrink-0" />
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    placeholder="Search by college, area or locality..."
+                    value={query}
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      setShowSuggestions(true);
+                    }}
+                    onFocus={() => query.trim() && setShowSuggestions(true)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                    className="flex-1 bg-transparent py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none"
+                  />
+                  {query && (
                     <button
-                      key={s.label}
-                      className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 transition-colors"
-                      onClick={() => handleSelectSuggestion(s.label)}
-                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => { setQuery(''); inputRef.current?.focus(); }}
+                      className="p-1.5 mr-1 text-slate-400 hover:text-slate-600"
                     >
-                      <MapPin size={14} className={s.type === 'college' ? 'text-[#1E3A8A]' : 'text-slate-400'} />
-                      <span className="flex-1">{s.label}</span>
-                      <span className="text-[11px] text-slate-400 font-medium uppercase">
-                        {s.type === 'college' ? 'College' : 'Area'}
-                      </span>
+                      <X size={16} />
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleSearch()}
+                    className="bg-[#1E3A8A] hover:bg-[#1E3A8A]/90 text-white text-sm font-semibold px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg mr-1.5 transition-colors flex-shrink-0"
+                  >
+                    Search
+                  </button>
+                </div>
+
+                {/* Autocomplete dropdown */}
+                <AnimatePresence>
+                  {showSuggestions && suggestions.length > 0 && (
+                    <motion.div
+                      className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 shadow-xl z-30 overflow-hidden"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.12 }}
+                    >
+                      {suggestions.map((s) => (
+                        <button
+                          key={s.label}
+                          className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 transition-colors"
+                          onClick={() => handleSelectSuggestion(s.label)}
+                          onMouseDown={(e) => e.preventDefault()}
+                        >
+                          <MapPin size={14} className={s.type === 'college' ? 'text-[#1E3A8A]' : 'text-slate-400'} />
+                          <span className="flex-1">{s.label}</span>
+                          <span className="text-[11px] text-slate-400 font-medium uppercase">
+                            {s.type === 'college' ? 'College' : 'Area'}
+                          </span>
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Filters row */}
+              <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-1 bg-slate-50 rounded-lg p-0.5">
+                  {genderOptions.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => setGender(opt.id)}
+                      className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${
+                        gender === opt.id
+                          ? 'bg-white text-slate-900 shadow-sm'
+                          : 'text-slate-500 hover:text-slate-700'
+                      }`}
+                    >
+                      {opt.label}
                     </button>
                   ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                </div>
+                <span className="text-xs text-slate-400 hidden sm:inline">
+                  Budget: ₹4,000 – ₹18,000/mo
+                </span>
+              </div>
+            </motion.div>
 
-          {/* Filters row */}
-          <div className="flex items-center gap-3 flex-wrap">
-            {/* Gender filter */}
-            <div className="flex items-center gap-1 bg-slate-50 rounded-lg p-0.5">
-              {genderOptions.map((opt) => (
+            {/* Quick search links */}
+            <motion.div
+              className="mt-4 flex items-center gap-2 flex-wrap"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <span className="text-xs text-slate-400 font-medium">Popular:</span>
+              {QUICK_LINKS.map((label) => (
                 <button
-                  key={opt.id}
-                  onClick={() => setGender(opt.id)}
-                  className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${
-                    gender === opt.id
-                      ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-500 hover:text-slate-700'
-                  }`}
+                  key={label}
+                  onClick={() => handleQuickLink(label)}
+                  className="text-xs font-medium text-[#1E3A8A]/80 hover:text-[#1E3A8A] bg-white/80 hover:bg-white px-2.5 py-1 rounded-full border border-slate-200/60 hover:border-[#1E3A8A]/20 transition-all shadow-sm"
                 >
-                  {opt.label}
+                  {label}
                 </button>
               ))}
-            </div>
-
-            {/* Budget hint */}
-            <span className="text-xs text-slate-400 hidden sm:inline">
-              Budget: ₹4,000 – ₹18,000/mo
-            </span>
+            </motion.div>
           </div>
-        </div>
 
-        {/* Quick search links */}
-        <div className="mt-4 flex items-center gap-2 flex-wrap justify-center">
-          <span className="text-xs text-slate-400 font-medium">Popular:</span>
-          {QUICK_LINKS.map((label) => (
-            <button
-              key={label}
-              onClick={() => handleQuickLink(label)}
-              className="text-xs font-medium text-[#1E3A8A]/80 hover:text-[#1E3A8A] bg-[#1E3A8A]/5 hover:bg-[#1E3A8A]/10 px-2.5 py-1 rounded-full transition-colors"
-            >
-              {label}
-            </button>
-          ))}
+          {/* Right: Hero Illustration */}
+          <motion.div
+            className="hidden lg:flex justify-center items-center"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <img
+              src="/images/hero-illustration.png"
+              alt="Student moving into a cozy PG room in Indore"
+              className="w-full max-w-md xl:max-w-lg rounded-2xl"
+              loading="eager"
+            />
+          </motion.div>
         </div>
       </div>
 
