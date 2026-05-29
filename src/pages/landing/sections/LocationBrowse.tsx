@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GraduationCap, MapPin, ArrowRight, Building2, Home, TrendingUp } from 'lucide-react';
+import { GraduationCap, MapPin, ArrowRight, Building2, TrendingUp } from 'lucide-react';
 
 interface CollegeArea {
   college: string;
