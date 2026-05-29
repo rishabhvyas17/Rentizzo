@@ -1,192 +1,239 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { useState, useRef, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { Search, MapPin, X } from 'lucide-react';
+
+type PropertyType = 'pg' | 'hostel' | 'room' | 'flat';
+type Gender = 'any' | 'boys' | 'girls';
+
+const COLLEGES_AND_AREAS = [
+  { label: 'Sage University', type: 'college' as const },
+  { label: 'Medicaps University', type: 'college' as const },
+  { label: 'IPS Academy', type: 'college' as const },
+  { label: 'DAVV (Devi Ahilya University)', type: 'college' as const },
+  { label: 'IIM Indore', type: 'college' as const },
+  { label: 'Prestige Institute', type: 'college' as const },
+  { label: 'Acropolis Institute', type: 'college' as const },
+  { label: 'Silicon City', type: 'area' as const },
+  { label: 'Vijay Nagar', type: 'area' as const },
+  { label: 'Bhawarkuan', type: 'area' as const },
+  { label: 'Rau', type: 'area' as const },
+  { label: 'Rajendra Nagar', type: 'area' as const },
+  { label: 'Palasia', type: 'area' as const },
+  { label: 'Sudama Nagar', type: 'area' as const },
+  { label: 'Pigdamber', type: 'area' as const },
+  { label: 'Vaishali Nagar', type: 'area' as const },
+  { label: 'Geeta Bhawan', type: 'area' as const },
+  { label: 'Saket Nagar', type: 'area' as const },
+  { label: 'New Palasia', type: 'area' as const },
+  { label: 'AB Road', type: 'area' as const },
+];
+
+const QUICK_LINKS = [
+  'Sage University',
+  'Medicaps',
+  'IPS Academy',
+  'Bhawarkuan',
+  'Vijay Nagar',
+  'Rau',
+];
 
 export function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const [activeType, setActiveType] = useState<PropertyType>('pg');
+  const [gender, setGender] = useState<Gender>('any');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  });
+  const suggestions = useMemo(() => {
+    if (!query.trim()) return [];
+    const q = query.toLowerCase();
+    return COLLEGES_AND_AREAS.filter((item) =>
+      item.label.toLowerCase().includes(q)
+    ).slice(0, 6);
+  }, [query]);
 
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const letterSpacing = useTransform(scrollYProgress, [0, 0.3], ['-0.02em', '0.08em']);
-  const subtitleOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const orbScale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
-  const orbOpacity = useTransform(scrollYProgress, [0, 0.8], [0.35, 0.1]);
+  const handleSearch = (searchQuery?: string) => {
+    const q = searchQuery || query;
+    setShowSuggestions(false);
+    // Navigate to discover page — in a real app this would pass filters
+    navigate('/seeker/discover');
+    console.log('Search:', { query: q, type: activeType, gender });
+  };
+
+  const handleSelectSuggestion = (label: string) => {
+    setQuery(label);
+    setShowSuggestions(false);
+    handleSearch(label);
+  };
+
+  const handleQuickLink = (label: string) => {
+    setQuery(label);
+    handleSearch(label);
+  };
+
+  const propertyTypes: { id: PropertyType; label: string }[] = [
+    { id: 'pg', label: 'PG' },
+    { id: 'hostel', label: 'Hostel' },
+    { id: 'room', label: 'Room' },
+    { id: 'flat', label: 'Flat' },
+  ];
+
+  const genderOptions: { id: Gender; label: string }[] = [
+    { id: 'any', label: 'Any' },
+    { id: 'boys', label: 'Boys' },
+    { id: 'girls', label: 'Girls' },
+  ];
 
   return (
     <section
-      ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #08090D 0%, #0C1220 40%, #111827 100%)' }}
+      id="search"
+      className="relative bg-gradient-to-b from-[#F0F4FF] via-[#F7F8FC] to-white pt-8 pb-12 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20"
     >
-      {/* Ambient gradient orbs */}
-      <motion.div
-        className="glow-orb w-[500px] h-[500px] -top-32 -left-48"
-        style={{
-          background: 'radial-gradient(circle, rgba(30,58,138,0.4) 0%, transparent 70%)',
-          scale: orbScale,
-          opacity: orbOpacity,
-        }}
-      />
-      <motion.div
-        className="glow-orb w-[400px] h-[400px] top-1/2 -right-32"
-        style={{
-          background: 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)',
-          scale: orbScale,
-          opacity: orbOpacity,
-        }}
-      />
-      <motion.div
-        className="glow-orb w-[300px] h-[300px] bottom-32 left-1/3"
-        style={{
-          background: 'radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%)',
-          scale: orbScale,
-          opacity: orbOpacity,
-        }}
-      />
+      {/* Subtle decorative elements */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-56 h-56 bg-indigo-100/30 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), 
-                            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
+        {/* Heading — SEO h1 */}
+        <div className="text-center mb-8 sm:mb-10">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 font-heading leading-tight mb-3">
+            Find PGs, Hostels & Rooms
+            <br />
+            <span className="text-[#1E3A8A]">in Indore</span>
+          </h1>
+          <p className="text-sm sm:text-base text-slate-500 max-w-md mx-auto">
+            Verified listings near Sage, Medicaps, IPS Academy and all major colleges. Starting ₹4,000/month.
+          </p>
+        </div>
 
-      {/* Main content */}
-      <motion.div
-        className="relative z-10 text-center px-6 max-w-5xl mx-auto"
-        style={{ y: titleY, opacity: titleOpacity }}
-      >
-        {/* Pill badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 md:mb-10"
-          style={{
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid rgba(255,255,255,0.1)',
-          }}
-        >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-medium text-slate-400 tracking-wide">
-            Now live in 25+ cities across India
-          </span>
-        </motion.div>
+        {/* Search Card */}
+        <div className="bg-white rounded-2xl shadow-lg shadow-slate-200/60 border border-slate-100 p-4 sm:p-5">
+          {/* Property type tabs */}
+          <div className="flex gap-1 mb-4 bg-slate-50 rounded-lg p-1">
+            {propertyTypes.map((type) => (
+              <button
+                key={type.id}
+                onClick={() => setActiveType(type.id)}
+                className={`flex-1 text-xs sm:text-sm font-medium py-2 rounded-md transition-all ${
+                  activeType === type.id
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                {type.label}
+              </button>
+            ))}
+          </div>
 
-        {/* Brand name — the hero IS the brand */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6"
-        >
-          <motion.span
-            className="block text-7xl sm:text-8xl md:text-9xl lg:text-[160px] font-bold tracking-tight text-white leading-none"
-            style={{
-              fontFamily: 'var(--font-display)',
-              letterSpacing,
-            }}
-          >
-            Rentizzo
-          </motion.span>
-        </motion.h1>
+          {/* Search input */}
+          <div className="relative mb-3">
+            <div className="flex items-center gap-2 bg-slate-50 rounded-xl border border-slate-200 focus-within:border-[#1E3A8A]/40 focus-within:ring-2 focus-within:ring-[#1E3A8A]/10 transition-all">
+              <Search size={18} className="text-slate-400 ml-3 flex-shrink-0" />
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Search by college, area or locality..."
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => query.trim() && setShowSuggestions(true)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                className="flex-1 bg-transparent py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none"
+              />
+              {query && (
+                <button
+                  onClick={() => { setQuery(''); inputRef.current?.focus(); }}
+                  className="p-1.5 mr-1 text-slate-400 hover:text-slate-600"
+                >
+                  <X size={16} />
+                </button>
+              )}
+              <button
+                onClick={() => handleSearch()}
+                className="bg-[#1E3A8A] hover:bg-[#1E3A8A]/90 text-white text-sm font-semibold px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg mr-1.5 transition-colors flex-shrink-0"
+              >
+                Search
+              </button>
+            </div>
 
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-lg sm:text-xl md:text-2xl font-light tracking-wide mb-4 max-w-2xl mx-auto"
-          style={{
-            fontFamily: 'var(--font-modern)',
-            color: 'rgba(255,255,255,0.6)',
-          }}
-        >
-          Rentals, Reimagined.
-        </motion.p>
+            {/* Autocomplete dropdown */}
+            <AnimatePresence>
+              {showSuggestions && suggestions.length > 0 && (
+                <motion.div
+                  className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 shadow-xl z-30 overflow-hidden"
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.12 }}
+                >
+                  {suggestions.map((s) => (
+                    <button
+                      key={s.label}
+                      className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 transition-colors"
+                      onClick={() => handleSelectSuggestion(s.label)}
+                      onMouseDown={(e) => e.preventDefault()}
+                    >
+                      <MapPin size={14} className={s.type === 'college' ? 'text-[#1E3A8A]' : 'text-slate-400'} />
+                      <span className="flex-1">{s.label}</span>
+                      <span className="text-[11px] text-slate-400 font-medium uppercase">
+                        {s.type === 'college' ? 'College' : 'Area'}
+                      </span>
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          style={{ opacity: subtitleOpacity }}
-          className="text-sm md:text-base text-slate-500 mb-10 max-w-lg mx-auto leading-relaxed"
-        >
-          The all-in-one operating system for the Indian rental ecosystem.
-          Manage properties · Pay rent · Discover homes · Find roommates.
-        </motion.p>
+          {/* Filters row */}
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Gender filter */}
+            <div className="flex items-center gap-1 bg-slate-50 rounded-lg p-0.5">
+              {genderOptions.map((opt) => (
+                <button
+                  key={opt.id}
+                  onClick={() => setGender(opt.id)}
+                  className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${
+                    gender === opt.id
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
 
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <motion.button
-            onClick={() => navigate('/login')}
-            className="group inline-flex items-center gap-2.5 px-8 py-4 text-base font-semibold text-white rounded-2xl shadow-2xl shadow-blue-500/20 transition-all duration-300"
-            style={{
-              background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #1E40AF 100%)',
-            }}
-            whileHover={{ scale: 1.04, boxShadow: '0 25px 50px -12px rgba(37,99,235,0.35)' }}
-            whileTap={{ scale: 0.97 }}
-          >
-            Explore the Ecosystem
-            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-          </motion.button>
+            {/* Budget hint */}
+            <span className="text-xs text-slate-400 hidden sm:inline">
+              Budget: ₹4,000 – ₹18,000/mo
+            </span>
+          </div>
+        </div>
 
-          <motion.button
-            onClick={() => {
-              const el = document.querySelector('#ecosystem');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="inline-flex items-center gap-2 px-6 py-4 text-sm font-medium rounded-2xl transition-all duration-300"
-            style={{
-              color: 'rgba(255,255,255,0.6)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              background: 'rgba(255,255,255,0.03)',
-            }}
-            whileHover={{
-              borderColor: 'rgba(255,255,255,0.2)',
-              color: 'rgba(255,255,255,0.9)',
-              background: 'rgba(255,255,255,0.06)',
-            }}
-            whileTap={{ scale: 0.97 }}
-          >
-            See How It Works
-          </motion.button>
-        </motion.div>
-      </motion.div>
+        {/* Quick search links */}
+        <div className="mt-4 flex items-center gap-2 flex-wrap justify-center">
+          <span className="text-xs text-slate-400 font-medium">Popular:</span>
+          {QUICK_LINKS.map((label) => (
+            <button
+              key={label}
+              onClick={() => handleQuickLink(label)}
+              className="text-xs font-medium text-[#1E3A8A]/80 hover:text-[#1E3A8A] bg-[#1E3A8A]/5 hover:bg-[#1E3A8A]/10 px-2.5 py-1 rounded-full transition-colors"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        style={{ opacity: subtitleOpacity }}
-      >
-        <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-600">
-          Scroll to explore
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <ChevronDown size={16} className="text-slate-600" />
-        </motion.div>
-      </motion.div>
+      {/* Close suggestions on click outside */}
+      {showSuggestions && (
+        <div className="fixed inset-0 z-20" onClick={() => setShowSuggestions(false)} />
+      )}
     </section>
   );
 }
