@@ -17,8 +17,23 @@ interface AuthState {
   loginAsManager: () => void;
   loginAsTenant: () => void;
   loginAsSeeker: () => void;
+  loginAsOwner: () => void;
+  loginAsBroker: () => void;
+  switchRole: (role: UserRole) => void;
   logout: () => void;
 }
+
+const mockOwnerUser: User = {
+  id: 'u-050', phone: '+919876500001', name: 'Vikram Mehta',
+  email: 'vikram@mehtaproperties.in', gender: 'male', role: 'owner',
+  isVerified: true, createdAt: '2025-06-01T10:00:00Z'
+};
+
+const mockBrokerUser: User = {
+  id: 'u-030', phone: '+919876500002', name: 'Rajesh Kumar',
+  email: 'rajesh.broker@gmail.com', gender: 'male', role: 'broker',
+  isVerified: true, createdAt: '2025-08-15T10:00:00Z'
+};
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -61,6 +76,35 @@ export const useAuthStore = create<AuthState>()(
         otpSent: false,
       }),
 
+      loginAsOwner: () => set({
+        user: mockOwnerUser,
+        isAuthenticated: true,
+        currentRole: 'owner',
+        otpSent: false,
+      }),
+
+      loginAsBroker: () => set({
+        user: mockBrokerUser,
+        isAuthenticated: true,
+        currentRole: 'broker',
+        otpSent: false,
+      }),
+
+      switchRole: (role) => {
+        const roleUsers: Record<UserRole, User> = {
+          manager: mockCurrentUser,
+          tenant: mockTenantUser,
+          seeker: { ...mockTenantUser, id: 'u-040', name: 'Nitin Verma', role: 'seeker' as UserRole },
+          owner: mockOwnerUser,
+          broker: mockBrokerUser,
+        };
+        set({
+          user: roleUsers[role],
+          isAuthenticated: true,
+          currentRole: role,
+        });
+      },
+
       logout: () => set({
         user: null,
         isAuthenticated: false,
@@ -69,7 +113,7 @@ export const useAuthStore = create<AuthState>()(
         currentRole: 'manager',
       }),
     }),
-    { name: 'nestease-auth' }
+    { name: 'rentizzo-auth' }
   )
 );
 
