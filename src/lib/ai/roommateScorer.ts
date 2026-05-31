@@ -1,5 +1,5 @@
 /**
- * NestEase AI — Roommate Compatibility Scorer
+ * Rentizzo AI — Roommate Compatibility Scorer
  * Uses weighted cosine similarity on lifestyle vectors.
  */
 

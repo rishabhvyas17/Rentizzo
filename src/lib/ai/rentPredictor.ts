@@ -1,5 +1,5 @@
 /**
- * NestEase AI — Rent Predictor
+ * Rentizzo AI — Rent Predictor
  * Suggests optimal rent based on locality, room type, amenities, and furnishing.
  */
 

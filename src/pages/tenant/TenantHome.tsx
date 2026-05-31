@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard, AnimatedButton, StatusBadge } from '../../components/ui';
 import { useAuthStore, useUIStore } from '../../store';
 import { mockRentCycles, mockPayments, mockMaintenanceRequests } from '../../lib/mock/data';
-import { CreditCard, Wrench, FileText, Phone, CheckCircle, Clock, AlertCircle, IndianRupee, ArrowUpRight } from 'lucide-react';
+import { CreditCard, Wrench, FileText, Phone, CheckCircle, Clock, AlertCircle, IndianRupee, ArrowUpRight, Building2, CalendarDays, UserCircle, MapPin } from 'lucide-react';
 
 export function TenantHome() {
   const { user } = useAuthStore();
@@ -55,9 +55,45 @@ export function TenantHome() {
       </AnimatePresence>
 
       {/* Greeting */}
-      <motion.div className="mb-6" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div className="mb-4" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold font-heading text-text-primary">{greeting}, {user?.name?.split(' ')[0]}</h1>
         <p className="text-sm text-text-secondary mt-1">Sunrise Heights · Room 101</p>
+      </motion.div>
+
+      {/* Lease Info Card */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mb-5">
+        <GlassCard variant="subtle" className="!p-3">
+          <div className="grid grid-cols-2 gap-2.5">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-accent-blue/10"><Building2 size={13} className="text-accent-blue-light" /></div>
+              <div>
+                <p className="text-[10px] text-text-ghost uppercase">Property</p>
+                <p className="text-xs font-medium text-text-primary">Sunrise Heights</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-accent-purple/10"><MapPin size={13} className="text-accent-purple-light" /></div>
+              <div>
+                <p className="text-[10px] text-text-ghost uppercase">Room</p>
+                <p className="text-xs font-medium text-text-primary">101 · Single</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-accent-emerald/10"><CalendarDays size={13} className="text-accent-emerald" /></div>
+              <div>
+                <p className="text-[10px] text-text-ghost uppercase">Lease</p>
+                <p className="text-xs font-medium text-text-primary">Jan '26 – Dec '26</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-accent-amber/10"><UserCircle size={13} className="text-accent-amber" /></div>
+              <div>
+                <p className="text-[10px] text-text-ghost uppercase">Manager</p>
+                <p className="text-xs font-medium text-text-primary">Arjun Mehta</p>
+              </div>
+            </div>
+          </div>
+        </GlassCard>
       </motion.div>
 
       {/* Rent Status Card */}

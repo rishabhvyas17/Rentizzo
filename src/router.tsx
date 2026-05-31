@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { ManagerLayout, TenantLayout, SeekerLayout } from './layouts';
+import { ManagerLayout, TenantLayout, SeekerLayout, OwnerLayout, BrokerLayout } from './layouts';
 import { LoginPage } from './pages/auth/LoginPage';
 import { LandingPage } from './pages/landing/LandingPage';
 import { ManagerDashboard } from './pages/manager/Dashboard';
@@ -12,6 +12,13 @@ import { TenantRequests, TenantPayments, TenantProfile } from './pages/tenant/Te
 import { DiscoverPage } from './pages/seeker/DiscoverPage';
 import { RoommateFinder } from './pages/seeker/RoommateFinder';
 import { BrokerDirectory, SeekerProfile } from './pages/seeker/BrokerDirectory';
+import { OwnerDashboard } from './pages/owner/OwnerDashboard';
+import { OwnerProperties } from './pages/owner/OwnerProperties';
+import { OwnerSettings } from './pages/owner/OwnerSettings';
+import { BrokerDashboard } from './pages/broker/BrokerDashboard';
+import { BrokerListings } from './pages/broker/BrokerListings';
+import { BrokerReviews } from './pages/broker/BrokerReviews';
+import { BrokerProfile } from './pages/broker/BrokerProfile';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +28,20 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+
+  // ── Owner Routes ──
+  {
+    path: '/owner',
+    element: <OwnerLayout />,
+    children: [
+      { index: true, element: <OwnerDashboard /> },
+      { path: 'home', element: <OwnerDashboard /> },
+      { path: 'properties', element: <OwnerProperties /> },
+      { path: 'managers', element: <TenantsPage /> },
+      { path: 'reports', element: <ReportsPage /> },
+      { path: 'settings', element: <OwnerSettings /> },
+    ],
   },
 
   // ── Manager Routes ──
@@ -34,6 +55,19 @@ export const router = createBrowserRouter([
       { path: 'tenants', element: <TenantsPage /> },
       { path: 'reports', element: <ReportsPage /> },
       { path: 'settings', element: <SettingsPage /> },
+    ],
+  },
+
+  // ── Broker Routes ──
+  {
+    path: '/broker',
+    element: <BrokerLayout />,
+    children: [
+      { index: true, element: <BrokerDashboard /> },
+      { path: 'home', element: <BrokerDashboard /> },
+      { path: 'listings', element: <BrokerListings /> },
+      { path: 'reviews', element: <BrokerReviews /> },
+      { path: 'profile', element: <BrokerProfile /> },
     ],
   },
 

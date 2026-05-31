@@ -7,7 +7,7 @@ import type {
 // ── Users ──
 export const mockCurrentUser: User = {
   id: 'u-001', phone: '+919876543210', name: 'Arjun Mehta',
-  email: 'arjun@nestease.in', gender: 'male', role: 'manager',
+  email: 'arjun@rentizzo.in', gender: 'male', role: 'manager',
   isVerified: true, createdAt: '2025-12-01T10:00:00Z'
 };
 

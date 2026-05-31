@@ -1,5 +1,5 @@
 /**
- * NestEase AI — Maintenance Triage Classifier
+ * Rentizzo AI — Maintenance Triage Classifier
  * Auto-categorizes and prioritizes maintenance requests from natural language.
  */
 
@@ -64,7 +64,7 @@ export function triageMaintenance(description: string): TriageResult {
 }
 
 /**
- * NestEase AI — Natural Language Search Parser
+ * Rentizzo AI — Natural Language Search Parser
  * Parses queries like "2BHK under 15k in Koramangala with AC" into structured filters.
  */
 

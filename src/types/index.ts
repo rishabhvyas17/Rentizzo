@@ -1,5 +1,5 @@
 /* ======================================================================== */
-/* NestEase — Type Definitions                                               */
+/* Rentizzo — Type Definitions                                               */
 /* ======================================================================== */
 
 export type UserRole = 'owner' | 'manager' | 'tenant' | 'seeker' | 'broker';

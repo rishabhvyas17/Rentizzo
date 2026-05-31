@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuthStore } from '../../store';
 import { AnimatedButton, GlassCard } from '../../components/ui';
-import { Building2, Users, Search, Shield, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Building2, Users, Search, Shield, ArrowRight, ArrowLeft, Crown, Briefcase } from 'lucide-react';
 
 type Step = 'welcome' | 'phone' | 'otp' | 'role';
 
@@ -13,7 +13,7 @@ export function LoginPage() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { loginAsManager, loginAsTenant, loginAsSeeker, sendOtp } = useAuthStore();
+  const { loginAsManager, loginAsTenant, loginAsSeeker, loginAsOwner, loginAsBroker, sendOtp } = useAuthStore();
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handlePhoneSubmit = () => {
@@ -53,8 +53,10 @@ export function LoginPage() {
   const handleRoleSelect = (role: string) => {
     setSelectedRole(role);
     setTimeout(() => {
-      if (role === 'manager' || role === 'owner') { loginAsManager(); navigate('/manager'); }
+      if (role === 'owner') { loginAsOwner(); navigate('/owner'); }
+      else if (role === 'manager') { loginAsManager(); navigate('/manager'); }
       else if (role === 'tenant') { loginAsTenant(); navigate('/tenant'); }
+      else if (role === 'broker') { loginAsBroker(); navigate('/broker'); }
       else { loginAsSeeker(); navigate('/seeker'); }
     }, 400);
   };
@@ -64,17 +66,58 @@ export function LoginPage() {
   }, [step]);
 
   const roles = [
-    { id: 'owner', label: 'Owner', desc: 'I own rental properties', icon: <Building2 size={28} />, gradient: 'from-slate-700 to-slate-800' },
-    { id: 'manager', label: 'Manager', desc: 'I manage properties for owners', icon: <Users size={28} />, gradient: 'from-accent-blue to-indigo-950' },
-    { id: 'tenant', label: 'Tenant', desc: 'I am renting a room or flat', icon: <Shield size={28} />, gradient: 'from-accent-emerald to-emerald-950' },
-    { id: 'seeker', label: 'Looking for a place', desc: 'I want to find a room, PG, or flat', icon: <Search size={28} />, gradient: 'from-slate-700 to-slate-900' },
+    {
+      id: 'owner',
+      label: 'Property Owner',
+      desc: 'Track your portfolio and monitor returns',
+      icon: <Crown size={24} />,
+      gradient: 'from-amber-600 to-amber-800',
+      accentBorder: 'border-amber-300/40',
+      accentBg: 'bg-amber-50',
+    },
+    {
+      id: 'manager',
+      label: 'Property Manager',
+      desc: 'Run operations across properties',
+      icon: <Users size={24} />,
+      gradient: 'from-blue-700 to-indigo-900',
+      accentBorder: 'border-blue-300/40',
+      accentBg: 'bg-blue-50',
+    },
+    {
+      id: 'tenant',
+      label: 'Tenant',
+      desc: 'Pay rent, raise requests, manage your stay',
+      icon: <Shield size={24} />,
+      gradient: 'from-emerald-600 to-emerald-800',
+      accentBorder: 'border-emerald-300/40',
+      accentBg: 'bg-emerald-50',
+    },
+    {
+      id: 'seeker',
+      label: 'Looking for a Place',
+      desc: 'Discover homes, PGs, and roommates',
+      icon: <Search size={24} />,
+      gradient: 'from-violet-600 to-violet-800',
+      accentBorder: 'border-violet-300/40',
+      accentBg: 'bg-violet-50',
+    },
+    {
+      id: 'broker',
+      label: 'Broker',
+      desc: 'Manage listings and grow your business',
+      icon: <Briefcase size={24} />,
+      gradient: 'from-rose-600 to-rose-800',
+      accentBorder: 'border-rose-300/40',
+      accentBg: 'bg-rose-50',
+    },
   ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-mesh-dark relative overflow-hidden">
       <div className="gradient-mesh" />
 
-      {/* Decorative orbs - Extremely subtle and high-trust */}
+      {/* Decorative orbs */}
       <div className="absolute top-1/4 -left-32 w-64 h-64 bg-accent-blue/3 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 -right-32 w-72 h-72 bg-slate-500/2 rounded-full blur-3xl" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-emerald/2 rounded-full blur-3xl" />
@@ -90,7 +133,7 @@ export function LoginPage() {
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 15 }}
               >
-                <Building2 size={36} className="text-white" />
+                <span className="text-white font-bold text-2xl font-heading">R</span>
               </motion.div>
 
               <motion.h1
@@ -99,7 +142,7 @@ export function LoginPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <span className="text-gradient">NestEase</span>
+                <span className="text-gradient">Rentizzo</span>
               </motion.h1>
               <motion.p
                 className="text-text-secondary text-base mb-3"
@@ -134,22 +177,34 @@ export function LoginPage() {
                 <p className="text-text-ghost text-xs mb-3">Quick Demo Access</p>
                 <div className="flex gap-2 justify-center flex-wrap">
                   <button
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium glass border border-amber-200/40 text-amber-700 hover:bg-amber-50/50 transition-colors"
+                    onClick={() => { loginAsOwner(); navigate('/owner'); }}
+                  >
+                    Owner
+                  </button>
+                  <button
                     className="px-3 py-1.5 rounded-lg text-xs font-medium glass border border-accent-blue/20 text-accent-blue-light hover:bg-accent-blue/10 transition-colors"
                     onClick={() => { loginAsManager(); navigate('/manager'); }}
                   >
-                    Manager Demo
+                    Manager
                   </button>
                   <button
                     className="px-3 py-1.5 rounded-lg text-xs font-medium glass border border-accent-emerald/20 text-accent-emerald-light hover:bg-accent-emerald/10 transition-colors"
                     onClick={() => { loginAsTenant(); navigate('/tenant'); }}
                   >
-                    Tenant Demo
+                    Tenant
                   </button>
                   <button
                     className="px-3 py-1.5 rounded-lg text-xs font-medium glass border border-accent-purple/20 text-accent-purple-light hover:bg-accent-purple/10 transition-colors"
                     onClick={() => { loginAsSeeker(); navigate('/seeker'); }}
                   >
-                    Seeker Demo
+                    Seeker
+                  </button>
+                  <button
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium glass border border-rose-200/40 text-rose-700 hover:bg-rose-50/50 transition-colors"
+                    onClick={() => { loginAsBroker(); navigate('/broker'); }}
+                  >
+                    Broker
                   </button>
                 </div>
               </motion.div>
@@ -234,32 +289,33 @@ export function LoginPage() {
           {/* ── Role Selection ── */}
           {step === 'role' && (
             <motion.div key="role" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
-              <h2 className="text-2xl font-bold font-heading text-text-primary mb-2">How will you use NestEase?</h2>
-              <p className="text-text-secondary text-sm mb-6">Select your primary role</p>
+              <h2 className="text-2xl font-bold font-heading text-text-primary mb-2">How will you use Rentizzo?</h2>
+              <p className="text-text-secondary text-sm mb-6">Choose your role — you can switch anytime</p>
 
               <div className="grid gap-3">
                 {roles.map((role, i) => (
                   <motion.button
                     key={role.id}
-                    className={`w-full text-left glass p-4 rounded-2xl border transition-all
+                    className={`w-full text-left p-4 rounded-2xl border-2 transition-all overflow-hidden relative
                       ${selectedRole === role.id
-                        ? 'border-accent-blue/40 bg-accent-blue/5 shadow-glow-blue'
-                        : 'border-glass-border hover:border-glass-border hover:bg-glass-hover'
+                        ? `${role.accentBorder} ${role.accentBg} shadow-lg scale-[1.02]`
+                        : 'border-glass-border bg-white hover:border-slate-200 hover:shadow-md'
                       }`}
                     onClick={() => handleRoleSelect(role.id)}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.08 }}
+                    transition={{ delay: i * 0.07 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <div className="flex items-center gap-4">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${role.gradient} flex items-center justify-center text-white flex-shrink-0`}>
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${role.gradient} flex items-center justify-center text-white flex-shrink-0 shadow-sm`}>
                         {role.icon}
                       </div>
-                      <div>
-                        <p className="text-base font-semibold text-text-primary">{role.label}</p>
-                        <p className="text-sm text-text-secondary">{role.desc}</p>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-text-primary">{role.label}</p>
+                        <p className="text-xs text-text-secondary mt-0.5">{role.desc}</p>
                       </div>
+                      <ArrowRight size={16} className={`flex-shrink-0 transition-colors ${selectedRole === role.id ? 'text-text-primary' : 'text-text-ghost'}`} />
                     </div>
                   </motion.button>
                 ))}
